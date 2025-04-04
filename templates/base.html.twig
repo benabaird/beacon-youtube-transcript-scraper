@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head>`
   <meta charset="UTF-8">
   <title>{% block title %}{{ title }}{% endblock %} | YouTube Caption Scraper</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
   {% block stylesheets %}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/app.css">
   {% endblock %}
   {% block javascripts %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -13,11 +14,28 @@
 </head>
 <body>
   {% block header %}
-    <header>
-      <nav>
+    <header class="site-header">
+      <nav class="menu menu--hover">
         <ul>
-          <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
-          <li><a href="{{ path('set.new') }}">New Set</a></li>
+          <li>{{ menu_link('dashboard', 'Dashboard') }}</li>
+          <li>{{ menu_link('videos', 'All Videos') }}</li>
+          <li>
+            {{ menu_link('sets', 'Sets') }}
+            <ul>
+              {% for set in sets %}
+                <li>
+                  {{ menu_link('set.view', set.name, { set: set.id }) }}
+                  <ul hidden>
+                    <li>{{ menu_link('set.view', 'Set Overview', { set: set.id }) }}</li>
+                    <li>{{ menu_link('set.videos', 'View Videos', { set: set.id }) }}</li>
+                    <li>{{ menu_link('set.videos.find', 'Find Videos', { set: set.id }) }}</li>
+                    <li>{{ menu_link('set.edit', 'Edit Set', { set: set.id }) }}</li>
+                  </ul>
+                </li>
+              {% endfor %}
+            </ul>
+          </li>
+          <li><a href="{{ path('settings') }}">Settings</a></li>
         </ul>
       </nav>
     </header>
@@ -38,10 +56,12 @@
     {% endif %}
   {% endblock %}
 
-  <h1>{% block h1 %}{{ title }}{% endblock %}</h1>
+  <main class="content">
+    <h1>{% block h1 %}{{ title }}{% endblock %}</h1>
 
-  {% block tasks %}{% endblock %}
+    {% block tasks %}{% endblock %}
 
-  {% block body %}{% endblock %}
+    {% block body %}{% endblock %}
+  </main>
 </body>
 </html>

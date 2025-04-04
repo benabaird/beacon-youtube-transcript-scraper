@@ -17,7 +17,8 @@ final readonly class VideoSearcher
 
     public function __construct(
         private VideoRepository $videos,
-    ) {}
+    )
+    {}
 
     public function filter(VideoFilter $filter): Collection
     {
@@ -26,15 +27,15 @@ final readonly class VideoSearcher
         }
         else {
             $videos = new ArrayCollection($this->videos->findAll());
-            $videos = $filter->hidden ? $videos->filter(fn(Video $video) => $video->isHidden()) : $videos;
+            $videos = $filter->hidden ? $videos->filter(fn(Video $video): bool => $video->isHidden()) : $videos;
         }
 
         if ($filter->transcript) {
             $transcript_filter = match ($filter->transcript) {
-                Transcript::Retrieved => fn(Video $video) => $video->hasRetrievedTranscript(),
-                Transcript::NotRetrieved => fn(Video $video) => !$video->hasRetrievedTranscript() && !$video->hasTranscript(),
-                Transcript::NotAvailable => fn(Video $video) => !$video->hasRetrievedTranscript() && $video->hasTranscript(),
-                default => fn(Video $video) => true,
+                Transcript::Retrieved => fn(Video $video): bool => $video->hasRetrievedTranscript(),
+                Transcript::NotRetrieved => fn(Video $video): bool => !$video->hasRetrievedTranscript() && !$video->hasTranscript(),
+                Transcript::NotAvailable => fn(Video $video): bool => !$video->hasRetrievedTranscript() && $video->hasTranscript(),
+                default => fn(Video $video): bool => true,
             };
             $videos = $videos->filter($transcript_filter);
         }

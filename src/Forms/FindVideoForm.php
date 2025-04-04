@@ -15,8 +15,12 @@ class FindVideoForm extends AbstractType
     {
         $builder
             ->setMethod('GET')
-            ->add('query', FormType\SearchType::class, ['label' => 'Search Query'])
-            ->add('search', FormType\SubmitType::class, ['label' => 'Search YouTube']);
+            ->add('query', FormType\SearchType::class, [
+                'label' => 'Search Query',
+            ])
+            ->add('search', FormType\SubmitType::class, [
+                'label' => 'Search YouTube',
+            ]);
     }
 
 }

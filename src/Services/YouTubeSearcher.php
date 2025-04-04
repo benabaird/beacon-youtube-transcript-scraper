@@ -4,24 +4,28 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Repository\ConfigRepository;
 use Google\Client;
 use Google\Service\YouTube;
 use Google\Service\YouTube\SearchListResponse;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 final class YouTubeSearcher
 {
 
     private array $query = [];
+
     private ?SearchListResponse $searchResults = NULL;
+
     public readonly Client $google;
+
     protected readonly YouTube $youTube;
 
     public function __construct(
-      #[Autowire(env: 'GOOGLE_API_KEY')] string $key,
+        private readonly ConfigRepository $config,
+        private readonly YouTubeQuotaTracker $tracker,
     ) {
         $this->google = new Client();
-        $this->google->setDeveloperKey($key);
+        $this->google->setDeveloperKey($this->config->get('youtube_api_key'));
         $this->youTube = new YouTube($this->google);
     }
 
@@ -44,6 +48,7 @@ final class YouTubeSearcher
     public function query(): YouTubeSearcher
     {
         $this->searchResults = $this->youTube->search->listSearch('snippet', $this->query);
+        $this->tracker->recordSearch();
         return $this;
     }
 

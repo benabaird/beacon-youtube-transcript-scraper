@@ -17,7 +17,8 @@ final readonly class VideoExporter
 
     public function __construct(
         private VideoRepository $videos,
-    ) {}
+    )
+    {}
 
     public function export(InputBag $post): ?Response
     {
@@ -63,7 +64,7 @@ final readonly class VideoExporter
     private function getVideosAsData(InputBag $post): array
     {
         return array_map(
-            fn(Video $video) => $video->toArray(),
+            fn(Video $video): array => $video->toArray(),
             $this->getVideos($post),
         );
     }

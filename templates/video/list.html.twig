@@ -2,60 +2,57 @@
 
 {% block body %}
   {% block filters %}
-    {{ form(form) }}
+    {{ form(form, { attr: { class: 'form form--inline' } }) }}
   {% endblock %}
 
   {% block results %}
     {% if not videos.empty %}
       <form name="save" method="post">
-        <table>
+        <table class="table-list table-list--videos">
           <thead>
             <tr>
-              <th>Video</th>
-              <th>Published</th>
-              <th>Transcript</th>
-              <th>{% if not form.vars.value is empty and form.vars.value.hidden %}Show{% else %}Hide{% endif %}</th>
+              <th class="table-list__title">Video Title</th>
+              <th class="table-list__published">Published</th>
+              <th class="table-list__transcript">Transcript</th>
+              <th class="table-list__hide">{% if not form.vars.value is empty and form.vars.value.hidden %}Show{% else %}Hide{% endif %}</th>
             </tr>
           </thead>
           <tbody>
           {% for video in videos %}
             <tr>
-              <td>
+              <td class="table-list__title">
                 <a href="{{ path('video.view', { video: video.id }) }}">{{ video.title }}</a>
                 <input type="hidden" name="video_id[{{ video.id }}]">
               </td>
-              <td>{{ video.published|date('F j, Y') }}</td>
-              <td>{{ video.retrievedTranscript ? 'Transcript Retrieved' : (video.hasTranscript ? 'No Transcript' : 'Transcript Not Retrieved') }}</td>
-              {% if not form.vars.value is empty and form.vars.value.hidden %}
-                <td>
+              <td class="table-list__published">{{ video.published|date('F j, Y') }}</td>
+              <td class="table-list__transcript">{{ video.retrievedTranscript ? 'Retrieved' : (video.hasTranscript ? 'No Transcript' : 'Not Retrieved') }}</td>
+              <td class="table-list__hide">
+                {% if not form.vars.value is empty and form.vars.value.hidden %}
                   <label for="show-video-{{ video.id }}" hidden>Show Video</label>
                   <input
                       id="show-video-{{ video.id }}"
                       name="show[{{ video.id }}]"
                       type="checkbox"
                   >
-                </td>
-              {% else %}
-                <td>
+                {% else %}
                   <label for="hide-video-{{ video.id }}" hidden>Hide Video</label>
                   <input
                     id="hide-video-{{ video.id }}"
                     name="hide[{{ video.id }}]"
                     type="checkbox"
                   >
-                </td>
-              {% endif %}
+                {% endif %}
+              </td>
             </tr>
           {% endfor %}
           </tbody>
+          <caption>
+            <button class="button button--save" name="retrieve_transcripts">Retrieve Transcripts</button>
+            <button name="update_visibility">Update Visibility</button>
+            <button class="button button--reset" name="download_csv">Download as CSV</button>
+            <button class="button button--reset" name="download_json">Download as JSON</button>
+          </caption>
         </table>
-
-        {% if videos %}
-          <button name="retrieve_transcripts">Retrieve Transcripts</button>
-          <button name="update_visibility">Update Visibility</button>
-          <button name="download_csv">Download as CSV</button>
-          <button name="download_json">Download as JSON</button>
-        {% endif %}
       </form>
     {% else %}
       <p>No videos found.</p>

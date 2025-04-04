@@ -18,7 +18,8 @@ final readonly class VideoUpdater
         private RequestStack $request,
         private VideoRepository $videos,
         private YouTubeTranscriptDownloader $transcripts,
-    ) {}
+    )
+    {}
 
     public function update(InputBag $post): void
     {

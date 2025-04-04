@@ -25,7 +25,8 @@ final class VideoController extends AbstractController
 
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-    ) {}
+    )
+    {}
 
     #[Route(path: '/video/{video<\d+>}', name: 'video.view', methods: 'GET')]
     public function view(Video $video): Response
@@ -58,7 +59,6 @@ final class VideoController extends AbstractController
             'title' => $filters->isEmpty(true) ? 'All Videos' : 'Search Results',
             'form' => $form,
             'videos' => $searcher->filter($filters),
-            'sets' => $sets->findAll(),
         ]);
     }
 

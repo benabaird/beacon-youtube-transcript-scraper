@@ -13,7 +13,8 @@ final readonly class VideoFilterFactory
 
     public function __construct(
         private SetRepository $sets,
-    ) {}
+    )
+    {}
 
     public function create(): VideoFilter
     {

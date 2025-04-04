@@ -1,11 +1,28 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-  <h2>Select Set</h2>
-  <table>
-    {% for set in sets %}
-      <tr><td><a href="{{ path('set.view', { set: set.id }) }}">{{ set.name }}</a></td></tr>
-    {% endfor %}
-    <caption><a href="{{ path('set.new') }}">Add a new set</a></caption>
-  </table>
+  <h2>Overview</h2>
+  <dl>
+    <dt>YouTube API Quota Usage</dt>
+    <dd>{{ usage }} of 10,000/day</dd>
+    <dt>Total Videos</dt>
+    <dd>{{ videos.total }}</dd>
+    <dt>Videos With Transcripts</dt>
+    <dd>{{ videos.with_transcript }}</dd>
+  </dl>
+
+  <h2>Instructions</h2>
+
+  <h3>Configuration</h3>
+  <p>In order to search and download transcripts you must enter your YouTube API Key on the <a href="{{ path('settings') }}">settings page</a>.</p>
+  <p>You can create an API key by following <a href="https://developers.google.com/youtube/v3/getting-started" target="_blank">Google's documentation</a>.</p>
+
+  <h3>Sets</h3>
+  <p>To search videos and download transcripts you first must create a set. Sets are collections of videos with related by a common topic. Videos can be in multiple sets but a video cannot exist without a set.</p>
+  <p>View, create, edit, or delete sets from the <a href="{{ path('sets') }}">set listing</a>.</p>
+  <p>Once you have created a set you may find videos and add them to the set using the "Find Videos" link from the set page. After searching for videos you can choose to add, ignore, or hide videos. Selecting "Add" adds the video to the set. "Hide" prevents the video from being shown again in searches. "Ignore" does nothing; the video is not added to the set and will re-appear in searches.</p>
+  <p>After finding and adding videos you can view asd filter videos added to the set using the "View Videos" link from the set page. You may use the "Retrive Transcripts" button at the bottom of the page to get transcripts for the videos in the table. Be patient, as this takes a few minutes. You may also change the visibility from Hidden or Shown using the checkboxes and the "Update Visibility" button. The "Download..." buttons retrieve a data for every filtered video and save it to your computer.</p>
+
+  <h3>All Videos</h3>
+  <p>It is also possible to view all videos across all sets using the <a href="{{ path('videos') }}">videos page</a>. You cannot find or add videos this way, however; this must be done from a set.</p>
 {% endblock %}

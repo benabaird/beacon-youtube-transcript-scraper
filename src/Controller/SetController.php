@@ -29,7 +29,16 @@ final class SetController extends AbstractController
 
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-    ) {}
+    )
+    {}
+
+    #[Route(path: '/sets', name: 'sets', methods: 'GET')]
+    public function list(): Response
+    {
+        return $this->render('set/list.html.twig', [
+            'title' => 'All Sets',
+        ]);
+    }
 
     #[Route(path: '/set/new', name:'set.new' , methods: ['GET', 'POST'])]
     public function new(Request $request): Response

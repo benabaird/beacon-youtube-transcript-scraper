@@ -76,12 +76,12 @@ class Set
 
     public function getShownVideos(): Collection
     {
-        return $this->getVideos()->filter(fn(Video $video) => !$video->isHidden());
+        return $this->getVideos()->filter(fn(Video $video): bool => !$video->isHidden());
     }
 
     public function getHiddenVideos(): Collection
     {
-        return $this->getVideos()->filter(fn(Video $video) => $video->isHidden());
+        return $this->getVideos()->filter(fn(Video $video): bool => $video->isHidden());
     }
 
 }

@@ -18,7 +18,6 @@ final readonly class YouTubeTranscriptDownloader
 
     private RemoteWebDriver $driver;
 
-
     public function __construct()
     {
         $this->driver = RemoteWebDriver::create(

@@ -8,8 +8,12 @@
     <dd>{{ video.published|date('F j, Y') }}</dd>
     <dt>Status</dt>
     <dd>
-      <p><strong>{{ video.hidden ? 'Hidden' : 'Visible' }}</strong></p>
-      <p>{% if video.hidden %}<a href="{{ path('video.show', { video: video.id }) }}">Show Video</a>{% else %}<a href="{{ path('video.hide', { video: video.id }) }}">Hide Video</a>{% endif %}</p>
+      {{ video.hidden ? 'Hidden' : 'Visible' }}
+      {% if video.hidden %}
+        <a href="{{ path('video.show', { video: video.id }) }}" class="button button--save">Show Video</a>
+      {% else %}
+        <a href="{{ path('video.hide', { video: video.id }) }}" class="button button--delete">Hide Video</a>
+      {% endif %}
     </dd>
     {% if video.transcriptText %}
       <dt>Transcript Full Text</dt>

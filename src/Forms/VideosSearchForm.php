@@ -13,7 +13,8 @@ class VideosSearchForm extends VideosSetSearchForm
 
     public function __construct(
         private readonly SetRepository $sets,
-    ) {}
+    )
+    {}
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

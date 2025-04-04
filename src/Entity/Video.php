@@ -63,7 +63,7 @@ class Video
 
     public function getTitle(): ?string
     {
-        return $this->title;
+        return html_entity_decode($this->title, ENT_QUOTES, 'UTF-8');
     }
 
     public function setTitle(string $title): static

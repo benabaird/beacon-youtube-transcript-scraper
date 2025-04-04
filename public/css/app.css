@@ -1,0 +1,204 @@
+body {
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0 1.5rem 3rem;
+}
+
+.menu {
+
+  > ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  a {
+    display: block;
+    padding: .5rem 1rem;
+  }
+
+}
+
+a:has(+ ul .menu--active),
+.menu--active {
+  font-weight: 700;
+}
+
+.menu--hover {
+
+  ul {
+
+    li {
+      position: relative;
+    }
+
+    ul {
+      display: none;
+      position: absolute;
+      left: 0;
+      min-width: 20rem;
+      padding: .5rem 1rem;
+      background: white;
+      border: 1px solid black;
+
+      a {
+        padding-right: 0;
+        padding-left: 0;
+      }
+    }
+
+    li:hover > ul {
+      display: block;
+    }
+  }
+}
+
+h1, h2, h3, h4, h5, h6, p, dl, ol, ul, caption {
+  margin-top: 1.5em;
+}
+
+form {
+  margin-top: 2rem;
+
+  div:has(button) {
+    margin-top: 2rem;
+  }
+}
+
+label {
+  display: block;
+  font-weight: 500;
+
+  & + input,
+  & + select {
+    margin-top: .25rem;
+  }
+}
+
+.form--stacked {
+
+  div,
+  input,
+  select {
+
+    & + & {
+      margin-top: 1rem;
+    }
+  }
+}
+
+.form--inline {
+  display: flex;
+
+  div,
+  input,
+  select {
+
+    & + & {
+      margin-left: 1rem;
+    }
+  }
+}
+
+.table-list {
+  --hover: aliceblue;
+  width: 100%;
+  margin: 2em 0;
+  border: 1px solid steelblue;
+
+  th,
+  td {
+    padding: .5em;
+  }
+
+  th {
+    background-color: steelblue;
+    color: white;
+  }
+
+  tbody {
+
+    tr {
+
+      &:nth-child(even) {
+        background-color: lightsteelblue;
+      }
+
+      &:hover {
+        background-color: aliceblue;
+      }
+    }
+  }
+}
+
+.table-list--sets {
+  max-width: 40rem;
+}
+
+.table-list__published {
+  min-width: 9em;
+}
+
+.table-list__transcript {
+  min-width: 8em;
+}
+
+.table-list__hide {
+  text-align: center;
+}
+
+button,
+.button {
+  --border: steelblue;
+  --background: white;
+  --color: steelblue;
+  display: inline-block;
+  padding: .5em;
+  border: 2px solid var(--border);
+  background-color: var(--background);
+  color: var(--color);
+  font-weight: bold;
+  text-decoration: none;
+
+  &:hover {
+    --background: lightsteelblue;
+    --color: white;
+  }
+}
+
+button[name*="reset"],
+.button--reset {
+  --border: darkslategray;
+  --color: darkslategray;
+
+  &:hover {
+    --background: slategray;
+    --color: white
+  }
+}
+
+button[name*="delete"],
+.button--delete {
+  --border: darkred;
+  --color: darkred;
+
+  &:hover {
+    --background: indianred;
+    --color: white;
+  }
+}
+
+button[name*="save"],
+.button--save {
+  --border: seagreen;
+  --color: seagreen;
+
+  &:hover {
+    --background: darkseagreen;
+    --color: white;
+  }
+}
