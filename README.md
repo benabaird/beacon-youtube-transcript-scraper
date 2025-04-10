@@ -34,10 +34,10 @@ After initial setup you can use the instructions in the "Starting and Stopping
 the App section".
 
 1. Install XCode command line tools (macOS only): `xcode-select --install`.
-2. Clone the repository: `git clone -b master <url> beacon`.
-3. Install DDEV and OrbStack using Homebrew.
+2. Install DDEV and OrbStack using Homebrew.
    * You do not need to do the "Create a Project" step in the DDEV 
      instructions.
+3. Clone the repository: `git clone git@github.com:benabaird/beacon-youtube-transcript-scraper.git -b master beacon`.
 4. Change into the project folder: `cd beacon`.
 5. Start the project containers: `ddev start`.
 6. Install project dependencies: `ddev composer install`.
