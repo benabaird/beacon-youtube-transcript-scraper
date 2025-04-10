@@ -1,0 +1,7 @@
+{% extends 'set/base.html.twig' %}
+
+{% block body %}
+  <p>There are {{ set.shownVideos.count }} videos ({{ set.hiddenVideos.count }} hidden) in the set.</p>
+  <p><a href="{{ path('set.videos', { set: set.id }) }}">View videos contained in the set.</a></p>
+  <p><a href="{{ path('set.videos.find', { set: set.id }) }}">Search and add new videos to the set.</a></p>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  {% block filters %}
+    {{ form(form) }}
+  {% endblock %}
+
+  {% block results %}
+    {% if not videos.empty %}
+      <form name="save" method="post">
+        <table>
+          <thead>
+            <tr>
+              <th>Video</th>
+              <th>Published</th>
+              <th>Transcript</th>
+              <th>{% if not form.vars.value is empty and form.vars.value.hidden %}Show{% else %}Hide{% endif %}</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for video in videos %}
+            <tr>
+              <td>
+                <a href="{{ path('video.view', { video: video.id }) }}">{{ video.title }}</a>
+                <input type="hidden" name="video_id[{{ video.id }}]">
+              </td>
+              <td>{{ video.published|date('F j, Y') }}</td>
+              <td>{{ video.retrievedTranscript ? 'Transcript Retrieved' : (video.hasTranscript ? 'No Transcript' : 'Transcript Not Retrieved') }}</td>
+              {% if not form.vars.value is empty and form.vars.value.hidden %}
+                <td>
+                  <label for="show-video-{{ video.id }}" hidden>Show Video</label>
+                  <input
+                      id="show-video-{{ video.id }}"
+                      name="show[{{ video.id }}]"
+                      type="checkbox"
+                  >
+                </td>
+              {% else %}
+                <td>
+                  <label for="hide-video-{{ video.id }}" hidden>Hide Video</label>
+                  <input
+                    id="hide-video-{{ video.id }}"
+                    name="hide[{{ video.id }}]"
+                    type="checkbox"
+                  >
+                </td>
+              {% endif %}
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+
+        {% if videos %}
+          <button name="retrieve_transcripts">Retrieve Transcripts</button>
+          <button name="update_visibility">Update Visibility</button>
+          <button name="download_csv">Download as CSV</button>
+          <button name="download_json">Download as JSON</button>
+        {% endif %}
+      </form>
+    {% else %}
+      <p>No videos found.</p>
+    {% endif %}
+  {% endblock %}
+
+{% endblock %}

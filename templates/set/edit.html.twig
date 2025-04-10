@@ -1,0 +1,9 @@
+{% extends 'set/base.html.twig' %}
+
+{% block body %}
+  {{ form_start(form) }}
+  {% for name, element in form.getIterator %}
+    {{ form_row(form[name]) }}
+  {% endfor %}
+  {{ form_end(form) }}
+{% endblock %}

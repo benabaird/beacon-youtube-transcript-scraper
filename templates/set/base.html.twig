@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block tasks %}
+  <nav>
+    <ul>
+      <li><a href="{{ path('set.view', { set: set.id }) }}">Set Overview</a></li>
+      <li><a href="{{ path('set.videos', { set: set.id }) }}">View Videos</a></li>
+      <li><a href="{{ path('set.videos.find', { set: set.id }) }}">Find Videos</a></li>
+      <li><a href="{{ path('set.edit', { set: set.id }) }}">Edit Set</a></li>
+    </ul>
+  </nav>
+{% endblock %}

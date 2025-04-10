@@ -1,0 +1,43 @@
+{% extends 'set/base.html.twig' %}
+
+{% block body %}
+  {{ form(search) }}
+
+  {% if videos %}
+    <form name="save" method="post" action="{{ path('set.videos.find', { set: set.id }) }}">
+      <table>
+        <thead>
+          <tr>
+            <td>Add</td>
+            <td>Hide</td>
+            <td>Ignore</td>
+            <td>Name</td>
+            <td>Published</td>
+          </tr>
+        </thead>
+        <tbody>
+        {% for video in videos %}
+          <tr>
+            <td>
+              <label for="add-{{ video.videoId }}" hidden>Add to Set</label>
+              <input id="add-{{ video.videoId }}" type="radio" name="{{ video.videoId }}" value="add" checked>
+            </td>
+            <td>
+              <label for="hide-{{ video.videoId }}" hidden>Hide</label>
+              <input id="hide-{{ video.videoId }}" type="radio" name="{{ video.videoId }}" value="hide">
+            </td>
+            <td>
+              <label for="ignore-{{ video.videoId }}" hidden>Hide</label>
+              <input id="ignore-{{ video.videoId }}" type="radio" name="{{ video.videoId }}" value="ignore">
+            </td>
+            <td><a href="https://www.youtube.com/watch?v={{ video.videoId }}" target="_blank">{{ video.title }}</a></td>
+            <td>{{ video.published|date('F j, Y') }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+
+      <button>Save to Set</button>
+    </form>
+  {% endif %}
+{% endblock %}

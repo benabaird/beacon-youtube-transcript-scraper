@@ -280,4 +280,4 @@ corepack_enable: false
 #hooks:
 ## Un-comment to consume async message.
 #    post-start:
-#    - exec: symfony run --daemon --watch=config,src,templates,vendor bin/console messenger:consume async -vv
+#    - exec: symfony run --daemon --watch=config,App,templates,vendor bin/console messenger:consume async -vv

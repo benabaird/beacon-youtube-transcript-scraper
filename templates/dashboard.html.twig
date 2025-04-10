@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <h2>Select Set</h2>
+  <table>
+    {% for set in sets %}
+      <tr><td><a href="{{ path('set.view', { set: set.id }) }}">{{ set.name }}</a></td></tr>
+    {% endfor %}
+    <caption><a href="{{ path('set.new') }}">Add a new set</a></caption>
+  </table>
+{% endblock %}

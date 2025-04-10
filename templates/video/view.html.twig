@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <dl>
+    <dt>Title</dt>
+    <dd><a href="https://www.youtube.com/watch?v={{ video.videoId }}" target="_blank">{{ video.title }}</a></dd>
+    <dt>Published</dt>
+    <dd>{{ video.published|date('F j, Y') }}</dd>
+    <dt>Status</dt>
+    <dd>
+      <p><strong>{{ video.hidden ? 'Hidden' : 'Visible' }}</strong></p>
+      <p>{% if video.hidden %}<a href="{{ path('video.show', { video: video.id }) }}">Show Video</a>{% else %}<a href="{{ path('video.hide', { video: video.id }) }}">Hide Video</a>{% endif %}</p>
+    </dd>
+    {% if video.transcriptText %}
+      <dt>Transcript Full Text</dt>
+      <dd>{{ video.transcriptText }}</dd>
+    {% endif %}
+    {% if video.transcriptWithTimestamps %}
+      <dt>Transcript With Timestamps</dt>
+      {% for time, text in video.transcriptWithTimestamps %}
+        <dd><strong>{{ time }}</strong> {{ text }}</dd>
+      {% endfor %}
+    {% endif %}
+  </dl>
+  {% if not video.retrievedTranscript %}
+    <p>This video does not have a downloaded transcript. If the video has a transcript you can <a href="{{ path('video.retrieve_transcript', { video: video.id }) }}">retrieve the transcript</a> manually.</p>
+  {% endif %}
+
+
+{% endblock %}
