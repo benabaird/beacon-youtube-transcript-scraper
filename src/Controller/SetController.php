@@ -52,7 +52,7 @@ final class SetController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->persist($set);
             $this->entityManager->flush();
-            $this->addFlash(LogLevel::INFO, "Set \"{$set->getName()}\" created.");
+            $this->addFlash(LogLevel::NOTICE, "Set \"{$set->getName()}\" created.");
             return $this->redirectToRoute('set.edit', ['set' => $set->getId()]);
         }
 
@@ -88,7 +88,7 @@ final class SetController extends AbstractController
             $set = $form->getData();
             $this->entityManager->persist($set);
             $this->entityManager->flush();
-            $this->addFlash(LogLevel::INFO, "Set \"{$set->getName()}\" updated.");
+            $this->addFlash(LogLevel::NOTICE, "Set \"{$set->getName()}\" updated.");
         }
 
         return $this->render('set/edit.html.twig', [
@@ -114,7 +114,7 @@ final class SetController extends AbstractController
 
             $this->entityManager->remove($set);
             $this->entityManager->flush();
-            $this->addFlash(LogLevel::INFO, "Set \"{$set->getName()}\" deleted.");
+            $this->addFlash(LogLevel::NOTICE, "Set \"{$set->getName()}\" deleted.");
             return $this->redirectToRoute('dashboard');
         }
 
@@ -250,8 +250,8 @@ final class SetController extends AbstractController
         }
         $this->entityManager->flush();
 
-        $this->addFlash(LogLevel::INFO, "$added video(s) added to set \"{$set->getName()}.");
-        $this->addFlash(LogLevel::INFO, "$hidden video(s) hidden.");
+        $this->addFlash(LogLevel::NOTICE, "$added video(s) added to set \"{$set->getName()}.");
+        $this->addFlash(LogLevel::NOTICE, "$hidden video(s) hidden.");
 
         return $this->redirectToRoute('set.videos.find', ['set' => $set->getId()]);
     }

@@ -42,7 +42,7 @@ final readonly class VideoUpdater
         $this->entityManager->flush();
 
         $new_state = $post->has('hide') ? 'hidden' : 'shown';
-        $this->request->getSession()->getFlashBag()->add(LogLevel::INFO, "$updated video(s) $new_state.");
+        $this->request->getSession()->getFlashBag()->add(LogLevel::NOTICE, "$updated video(s) $new_state.");
     }
 
     public function retrieveTranscripts(InputBag $post): void
@@ -69,7 +69,7 @@ final readonly class VideoUpdater
             }
         }
 
-        $this->request->getSession()->getFlashBag()->add(LogLevel::INFO, "$successes transcript(s) retrieved.");
+        $this->request->getSession()->getFlashBag()->add(LogLevel::NOTICE, "$successes transcript(s) retrieved.");
         $this->request->getSession()->getFlashBag()->add(LogLevel::WARNING, "$failures transcript(s) could not be retrieved or do not exist on the video(s).");
     }
 

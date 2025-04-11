@@ -31,6 +31,7 @@ a:has(+ ul .menu--active),
 .menu--hover {
 
   ul {
+    margin-top: 0;
 
     li {
       position: relative;
@@ -55,6 +56,61 @@ a:has(+ ul .menu--active),
       display: block;
     }
   }
+}
+
+.messages {
+  margin-top: 2rem;
+}
+
+.message {
+  --border: black;
+  --background: lightgray;
+  --color: black;
+  padding: 1rem;
+  border: 2px solid var(--border);
+  border-radius: 1rem;
+  background-color: var(--background);
+  color: var(--color);
+
+  > *:first-child {
+    margin-top: 0;
+  }
+
+  > *:last-child {
+    margin-bottom: 0;
+  }
+
+  + & {
+    margin-top: 1rem;
+  }
+}
+
+.message--emergency,
+.message--alert,
+.message--critical,
+.message--error {
+  --border: darkred;
+  --background: lightpink;
+  --color: darkred;
+}
+
+.message--warning {
+  --border: orange;
+  --background: #ffecce;
+  --color: orange;
+}
+
+.message--notice {
+  --border: seagreen;
+  --background: palegreen;
+  --color: seagreen;
+}
+
+.message--info,
+.message--debug {
+  --border: steelblue;
+  --background: aliceblue;
+  --color: steelblue;
 }
 
 h1, h2, h3, h4, h5, h6, p, dl, ol, ul, caption {

@@ -91,7 +91,7 @@ final class VideoController extends AbstractController
             $this->entityManager->flush();
 
             if ($transcript) {
-                $this->addFlash(LogLevel::INFO, "Transcript retrieved for video \"{$video->getTitle()}\".");
+                $this->addFlash(LogLevel::NOTICE, "Transcript retrieved for video \"{$video->getTitle()}\".");
             }
             else {
                 $this->addFlash(LogLevel::WARNING, "Transcript could not be retrieved or did not exist for video \"{$video->getTitle()}\".");
@@ -106,7 +106,7 @@ final class VideoController extends AbstractController
     {
         $video->setHidden(true);
         $this->entityManager->flush();
-        $this->addFlash(LogLevel::INFO, "Video \"{$video->getTitle()}\" has been hidden.");
+        $this->addFlash(LogLevel::NOTICE, "Video \"{$video->getTitle()}\" has been hidden.");
         return $this->redirectToRoute('video.view', ['video' => $video->getId()]);
     }
 
@@ -115,7 +115,7 @@ final class VideoController extends AbstractController
     {
         $video->setHidden(false);
         $this->entityManager->flush();
-        $this->addFlash(LogLevel::INFO, "Video \"{$video->getTitle()}\" is no longer hidden.");
+        $this->addFlash(LogLevel::NOTICE, "Video \"{$video->getTitle()}\" is no longer hidden.");
         return $this->redirectToRoute('video.view', ['video' => $video->getId()]);
     }
 
